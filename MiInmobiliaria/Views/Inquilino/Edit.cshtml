@@ -1,0 +1,150 @@
+﻿@model MiInmobiliaria.Models.Inquilino
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-warning"> <h1><i class="far fa-edit"></i> Editar</h1> </div>
+    <div class="col-9"> <h4>Inquilino</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Id" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Id" class="form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Id" class="control-label" hidden></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Id" class="form-control" hidden />
+                        <span asp-validation-for="Persona.Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="PersonaId" class="control-label" hidden></label></div>
+                    <div class="col-9">
+                        <input asp-for="PersonaId" class="form-control" hidden />
+                        <span asp-validation-for="PersonaId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <input asp-for="Persona.TipoPersonaId" class="form-control" hidden />
+            <input asp-for="Persona.TipoPersona.Nombre" class="form-control" hidden />
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Tipo de Persona</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="Persona.TipoPersona.Id">
+                            @foreach (var item in (IList<TipoPersona>)ViewBag.TipoPersona)
+                            {
+                                @:<option @(item.Id == Model.Persona.TipoPersona.Id ? "selected" : "") value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Persona.TipoPersona.Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Apellido" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Apellido" class="form-control" />
+                        <span asp-validation-for="Persona.Apellido" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Nombre" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Nombre" class="form-control" />
+                        <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.FechaNac" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.FechaNac" class="form-control" />
+                        <span asp-validation-for="Persona.FechaNac" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Dni" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Dni" class="form-control" />
+                        <span asp-validation-for="Persona.Dni" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Telefono" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Telefono" class="form-control" type="tel" />
+                        <span asp-validation-for="Persona.Telefono" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.Email" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Persona.Email" class="form-control" />
+                        <span asp-validation-for="Persona.Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Persona.AvatarFile" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="file" asp-for="Persona.AvatarFile" name="Persona.AvatarFile" class="form-control" />
+                        <span asp-validation-for="Persona.AvatarFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        @if (Model.Persona.Avatar != "")
+                        {
+                            <img width="300" src="@Model.Persona.Avatar" /> }
+                        else
+                        {
+                            <p>Sin avatar</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" /> │ <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

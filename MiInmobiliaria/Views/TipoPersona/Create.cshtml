@@ -1,0 +1,44 @@
+﻿@model MiInmobiliaria.Models.TipoPersona
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-primary"> <h1><i class="fa fa-plus"></i> Crear</h1> </div>
+    <div class="col-9"> <h4>TipoPersona</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Id" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Id" class="form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Nombre" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Nombre" class="form-control" autofocus />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" /> │ <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

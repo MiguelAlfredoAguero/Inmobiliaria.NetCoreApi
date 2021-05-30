@@ -1,0 +1,35 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido a MiInmobiliaria</h1>
+    <br />
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+</div>
+
+<h3>@ViewBag.Titulo</h3>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    await Html.RenderPartialAsync("_Login", new Login());
+    <br />
+}
+
+@*<partial name="_Login.cshtml" />*@
+
+<div class="row">
+    <div class="col">
+        <p>Estas son las personas registradas en el sistema:</p>
+        <ul>
+            @foreach (string s in Model)
+            {
+                <li>@s</li>
+            }
+        </ul>
+    </div>
+    <div class="col">
+        <img src="~/Uploads/inmobiliaria.jpg" />
+    </div>
+</div>

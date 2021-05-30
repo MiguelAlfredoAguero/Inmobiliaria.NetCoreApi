@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MiInmobiliaria.Models.Propietario>
+
+@{
+    ViewData["Title"] = "Propietarios";
+}
+
+<div class="row align-items-baseline">
+    <div class="col">
+        <a asp-area="" asp-controller="Propietario" asp-action="index"> <h4>Lista de Propietarios</h4> </a>
+    </div>
+    <div class="col text-right">
+        <div class="btn btn-outline-primary"> <a asp-action="Create"> <i class="fa fa-plus"></i> Crear Nuevo</a> </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Id) </th>
+            <th> @Html.DisplayNameFor(model => model.Persona.Apellido) y @Html.DisplayNameFor(model => model.Persona.Nombre) </th>
+            <th> @Html.DisplayNameFor(model => model.Persona.FechaNac) </th>
+            <th> @Html.DisplayNameFor(model => model.Persona.Dni) </th>
+            <th> @Html.DisplayNameFor(model => model.Persona.Email) </th>
+            <th> @Html.DisplayNameFor(model => model.Activo) </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.Id) </td>
+                <td> @Html.DisplayFor(modelItem => item.Persona.Apellido) @Html.DisplayFor(modelItem => item.Persona.Nombre) </td>
+                <td> @Html.DisplayFor(modelItem => item.Persona.FechaNac) </td>
+                <td> @Html.DisplayFor(modelItem => item.Persona.Dni) </td>
+                <td> @Html.DisplayFor(modelItem => item.Persona.Email) </td>
+                <td> @Html.DisplayFor(modelItem => item.Activo) </td>
+                <td>
+                    @*@Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.Id })*@
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="text-warning"><i class="far fa-edit"></i></a> │
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Detalle"><i class="fas fa-bars"></i></a> │
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Borrar" class="text-danger"><i class="far fa-trash-alt"></i></a> │
+
+                    <a asp-controller="Inmueble" asp-action="getByPropietario" asp-route-id="@item.Id" title="Mis propiedades" class="text-secondary"> <i class="fas fa-home"></i> </a>
+
+                    @*@Html.ActionLink("Mis Propiedades", "getByPropietario", "Inmueble", new { id = item.Id })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,144 @@
+﻿@model MiInmobiliaria.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Crear";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-primary"> <h1><i class="fa fa-plus"></i> Crear</h1> </div>
+    <div class="col-9"> <h4>Inmueble</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-3"><label asp-for="Id" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Direccion" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Direccion" class="form-control" />
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Ambientes" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Ambientes" class="form-control" value="1" />
+                        <span asp-validation-for="Ambientes" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Precio" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Precio" class="form-control" />
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Uso Inmueble</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="UsoInmuebleId">
+                            @foreach (var item in (IList<UsoInmueble>)ViewBag.Usos)
+                            {
+                                @:<option value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UsoInmuebleId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Tipo Inmueble</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="TipoInmuebleId">
+                            @foreach (var item in (IList<TipoInmueble>)ViewBag.Tipos)
+                            {
+                                @:<option value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="TipoInmuebleId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Disponible" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="checkbox" asp-for="Disponible" checked />
+                        <span asp-validation-for="Disponible" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Propietario</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="PropietarioId">
+                            @foreach (var item in (IList<Propietario>)ViewBag.Propietarios)
+                            {
+                                @:<option value="@item.Id">@(item.Persona.Apellido + " " + item.Persona.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="PropietarioId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Agencia</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="AgenciaId">
+                            @foreach (var item in (IList<Agencia>)ViewBag.Agencias)
+                            {
+                                @:<option value="@item.Id">@(item.Persona.Nombre + " " + item.Persona.Apellido)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="AgenciaId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="AvatarFile" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="file" asp-for="AvatarFile" name="AvatarFile" class="form-control" />
+                        <span asp-validation-for="AvatarFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" /> │ <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

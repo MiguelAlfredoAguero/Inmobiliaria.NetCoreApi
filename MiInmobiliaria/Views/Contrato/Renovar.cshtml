@@ -1,0 +1,94 @@
+﻿@model MiInmobiliaria.Models.Contrato
+
+@{
+    ViewData["Title"] = "Renovar";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-success"> <h1> <i class="fas fa-recycle"></i> Renovar</h1> </div>
+    <div class="col-9"> <h4>Contrato</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Renovar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Id" class="control-label"></label> </div>
+                    <div class="col-9">
+                        <input asp-for="Id" class="form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Inmueble" class="control-label"></label> </div>
+                    <div class="col-9 form-control">
+                        <input asp-for="InmuebleId" class="form-control" hidden />
+                        @Html.DisplayFor(model => model.Inmueble.Direccion) - Ambientes: @Html.DisplayFor(model => model.Inmueble.Ambientes) 
+                        <span asp-validation-for="InmuebleId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Inquilino" class="control-label"></label> </div>
+                    <div class="col-9 form-control">
+                        <input asp-for="InquilinoId" class="form-control" hidden />
+                        @Html.DisplayFor(model => model.Inquilino.Persona.Apellido) @Html.DisplayFor(model => model.Inquilino.Persona.Nombre)
+                        <span asp-validation-for="InquilinoId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Garante" class="control-label"></label> </div>
+                    <div class="col-9 form-control">
+                        <input asp-for="GaranteId" class="form-control" hidden />
+                        @Html.DisplayFor(model => model.Garante.Persona.Apellido) @Html.DisplayFor(model => model.Garante.Persona.Nombre)
+                        <span asp-validation-for="GaranteId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Desde" class="control-label"></label> </div>
+                    <div class="col-9">
+                        <input asp-for="Desde" class="form-control"  min='@Html.ValueFor(Model => Model.Desde, "{0:yyyy-MM-dd}")' />
+                        <span asp-validation-for="Desde" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Hasta" class="control-label"></label> </div>
+                    <div class="col-9">
+                        <input asp-for="Hasta" class="form-control" min='@Html.ValueFor(Model => Model.Desde, "{0:yyyy-MM-dd}")' />
+                        <span asp-validation-for="Hasta" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"> <label asp-for="Precio" class="control-label"></label> </div>
+                    <div class="col-9">
+                        <input asp-for="Precio" class="form-control" />
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" /> | <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

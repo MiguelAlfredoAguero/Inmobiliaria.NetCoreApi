@@ -1,0 +1,208 @@
+﻿@model IEnumerable<MiInmobiliaria.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Busqueda";
+    var UsoInmuebleId = int.Parse("0");
+    var TipoInmuebleId = int.Parse("0");
+    var ambientes = 0;
+    var desde = DateTime.Now;
+    var hasta = DateTime.Now;
+    var minimo = Decimal.Zero;
+    var maximo = Decimal.MaxValue;
+}
+
+<form asp-action="Busqueda" method="post">
+    <div class="row align-items-baseline">
+        <div class="col-9">
+            <a asp-area="" asp-controller="Inmueble" asp-action="Busqueda" > <h4>Lista de Inmuebles - Busqueda avanzada de inmuebles desocupados</h4> </a>
+        </div>
+        <div class="col-3 text-right">
+            <div class="btn btn-outline-primary">
+                <button type="submit" class="border-0 btn btn-primary-outline btn-sm" title="Buscar...">
+                    @if ((Boolean)ViewBag.filtroDesocupado)
+                    {
+                        <i class="fas fa-filter text-danger"></i>
+                    }
+                    <i class="fas fa-search text-primary"></i>
+                    Buscar...
+                </button>
+            </div>
+        </div>
+
+
+        <div class="col">
+            UsoInmueble
+            <select class="form-control" name="UsoInmuebleId">
+                <option value="0">@("Todos")</option>
+                @foreach (var item in (IList<UsoInmueble>)ViewBag.Usos)
+                {
+                    @:<option value="@item.Id">@(item.Nombre)</option>
+                }
+            </select>
+        </div>
+
+        <div class="col">
+            TipoInmueble
+            <select class="form-control" name="TipoInmuebleId">
+                <option value="0">@("Todos")</option>
+                @foreach (var item in (IList<TipoInmueble>)ViewBag.Tipos)
+                {
+                    @:<option value="@item.Id">@(item.Nombre)</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            Ambientes <input type="number" id="ambientes" name="ambientes" asp-for="@ambientes" class="form-control" value="0" min="0" />
+        </div>
+
+
+        <div class="col">
+            Desde <input type="date" name="desde" asp-for="@desde" class="form-control" />
+        </div>
+        <div class="col">
+            Hasta <input type="date" name="hasta" asp-for="@hasta" class="form-control" />
+        </div>
+        <div class="col">
+            Desde $ <input type="number" id="minimo" name="minimo" class="form-control" value="0" min="0" />
+        </div>
+        <div class="col">
+            Hasta $ <input type="number" id="maximo" name="maximo" class="form-control" value="999999" min="0" />
+        </div>
+
+    </div>
+</form>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsoInmuebleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoInmuebleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PropietarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgenciaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ambientes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsoInmuebleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoInmuebleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponible)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PropietarioId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgenciaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Avatar)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Id) </th>
+            <th> @Html.DisplayNameFor(model => model.Direccion) </th>
+            <th> @Html.DisplayNameFor(model => model.UsoInmueble) </th>
+            <th> @Html.DisplayNameFor(model => model.TipoInmueble) </th>
+            <th> @Html.DisplayNameFor(model => model.Ambientes) </th>
+            <th> @Html.DisplayNameFor(model => model.Precio) </th>
+
+            <th> @Html.DisplayNameFor(model => model.Propietario) </th>
+            <th> @Html.DisplayNameFor(model => model.Agencia) </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.Id) </td>
+            <td> @Html.DisplayFor(modelItem => item.Direccion) </td>
+            <td> @Html.DisplayFor(modelItem => item.UsoInmueble.Nombre) </td>
+            <td> @Html.DisplayFor(modelItem => item.TipoInmueble.Nombre) </td>
+            <td class="text-center"> @Html.DisplayFor(modelItem => item.Ambientes) </td>
+            <td> @Html.DisplayFor(modelItem => item.Precio) </td>
+
+            <td>
+                <a asp-controller="Inmueble" asp-action="getByPropietario" asp-route-id="@item.PropietarioId" title="Mis Propiedades">
+                    @Html.DisplayFor(modelItem => item.Propietario.Persona.Apellido)
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Inmueble" asp-action="getByAgencia" asp-route-id="@item.AgenciaId" title="Mis propiedades" class="text-primary">
+                    @Html.DisplayFor(modelItem => item.Agencia.Persona.Apellido)
+                </a>
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+
+                <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="text-warning"> <i class="far fa-edit"></i> </a> │
+                <a asp-action="Details" asp-route-id="@item.Id" title="Detalle"> <i class="fas fa-bars"></i> </a> │
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Borrar" class="text-danger"> <i class="far fa-trash-alt"></i> </a> |
+                <a asp-controller="Contrato" asp-action="GetByInmueble" asp-route-id="@item.Id" title="Contratos" class="text-success"> <i class="fas fa-file-signature"></i> </a>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

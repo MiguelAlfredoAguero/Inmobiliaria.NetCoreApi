@@ -1,0 +1,89 @@
+﻿@model MiInmobiliaria.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Detalle";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-primary"> <h1><i class="fas fa-bars"></i> Detalle</h1> </div>
+    <div class="col-9"> <h4>Inmueble</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <dl class="row">
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Ambientes)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.UsoInmuebleId)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.UsoInmueble.Nombre)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.TipoInmuebleId)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.TipoInmueble.Nombre)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Disponible)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Disponible)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Propietario)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Propietario.Persona.Apellido) @Html.DisplayFor(model => model.Propietario.Persona.Nombre)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Agencia)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Agencia.Persona.Apellido) @Html.DisplayFor(model => model.Agencia.Persona.Nombre)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Avatar)
+            </dt>
+            <dd class="col-9 col-sm-9 ">
+                @if (Model.Avatar != "")
+                {
+                    <img width="300" src="@Model.Avatar" /> }
+                else
+                {
+                    <p>Sin avatar</p>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Volver a la Lista</a>
+</div>

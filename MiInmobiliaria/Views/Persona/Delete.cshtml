@@ -1,0 +1,93 @@
+﻿@model MiInmobiliaria.Models.Persona
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-danger"> <h1><i class="far fa-trash-alt"></i> Borrar</h1> </div>
+    <div class="col-9"> <h4>Persona</h4> </div>
+</div>
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+
+        <dl class="row">
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.TipoPersona)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.TipoPersona.Nombre)
+            </dd>
+
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.FechaNac)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.FechaNac)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Dni)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Dni)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Avatar)
+            </dt>
+            <dd class="col-9 col-sm-9 ">
+                @if (Model.Avatar != "")
+                {
+                    <img width="300" src="@Model.Avatar" /> }
+                else
+                {
+                    <p>Sin avatar</p>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="submit" value="Borrar" class="btn btn-danger" onclick="return Confirmar()" /> |
+            <a asp-action="Index">Volver a la Lista</a>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function Confirmar() {
+        var opcion = confirm("Borrar Registro. Confirma la operacion?");
+        if (opcion == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

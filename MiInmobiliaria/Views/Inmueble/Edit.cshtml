@@ -1,0 +1,162 @@
+﻿@model MiInmobiliaria.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-warning"> <h1><i class="far fa-edit"></i> Editar</h1> </div>
+    <div class="col-9"> <h4>Inmueble</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Id" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Id" class="form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Direccion" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Direccion" class="form-control" />
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Ambientes" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Ambientes" class="form-control" />
+                        <span asp-validation-for="Ambientes" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Precio" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Precio" class="form-control" />
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Uso Inmueble</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="UsoInmuebleId">
+                            @foreach (var item in (IList<UsoInmueble>)ViewBag.Usos)
+                            {
+                                @:<option @(item.Id == Model.UsoInmuebleId ? "selected" : "") value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UsoInmuebleId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Tipo Inmueble</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="TipoInmuebleId">
+                            @foreach (var item in (IList<TipoInmueble>)ViewBag.Tipos)
+                            {
+                                @:<option @(item.Id == Model.TipoInmuebleId ? "selected" : "") value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="TipoInmuebleId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Disponible" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="checkbox" asp-for="Disponible" />
+                        <span asp-validation-for="Disponible" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Propietario</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="PropietarioId">
+                            @foreach (var item in (IList<Propietario>)ViewBag.Propietarios)
+                            {
+                                @:<option @(item.PersonaId == Model.PropietarioId ? "selected" : "") value="@item.Id">@(item.Persona.Apellido + " " + item.Persona.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="PropietarioId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Agencia</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="AgenciaId">
+                            @foreach (var item in (IList<Agencia>)ViewBag.Agencias)
+                            {
+                                @:<option @(item.PersonaId == Model.AgenciaId ? "selected" : "") value="@item.Id">@(item.Persona.Nombre + " " + item.Persona.Apellido)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="AgenciaId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <input type="hidden" asp-for="Avatar" value="@Model.Avatar" name="Avatar" class="form-control" />
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="AvatarFile" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="file" asp-for="AvatarFile" name="AvatarFile" class="form-control" />
+                        <span asp-validation-for="AvatarFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        @if (Model.Avatar != "")
+                        {
+                            <img width="300" src="@Model.Avatar" /> }
+                        else
+                        {
+                            <p>Sin avatar</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" /> │ <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,135 @@
+﻿@model MiInmobiliaria.Models.Persona
+
+@{
+    ViewData["Title"] = "Create";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-primary"> <h1><i class="fa fa-plus"></i> Crear</h1> </div>
+    <div class="col-9"> <h4>Persona</h4> </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <div class="row">
+                <div class="col-3"><label asp-for="Id" class="control-label"></label></div>
+                <div class="col-9">
+                    <input asp-for="Id" class="form-control" readonly />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            </div>
+        </div>*@
+            @*<div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label>Tipo Persona</label></div>
+                    <div class="col-9">
+                        @Html.DropDownList("Persona.TipoPersonaId", items, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label class="control-label">Uso Inmueble</label></div>
+                    <div class="col-9">
+                        <select class="form-control" name="TipoPersona.Id">
+                            @foreach (var item in (IList<TipoPersona>)ViewBag.TiposPersona)
+                            {
+                                @:<option value="@item.Id">@(item.Nombre)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="TipoPersona.Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Apellido" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Apellido" class="form-control" autofocus />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Nombre" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="FechaNac" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="FechaNac" class="form-control" />
+                        <span asp-validation-for="FechaNac" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Dni" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Dni" class="form-control" />
+                        <span asp-validation-for="Dni" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Telefono" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="Email" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-3"><label asp-for="Avatar" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input asp-for="Avatar" class="form-control" />
+                        <span asp-validation-for="Avatar" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3"><label asp-for="AvatarFile" class="control-label"></label></div>
+                    <div class="col-9">
+                        <input type="file" asp-for="AvatarFile" name="AvatarFile" class="form-control" />
+                        <span asp-validation-for="AvatarFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" /> │ <a asp-action="Index">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

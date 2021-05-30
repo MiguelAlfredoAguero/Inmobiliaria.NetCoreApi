@@ -1,0 +1,134 @@
+﻿@model IEnumerable<MiInmobiliaria.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Inmuebles";
+    var desde = DateTime.Now;
+    var hasta = DateTime.Now;
+}
+
+<form asp-action="Desocupados" method="post">
+    <div class="row align-items-baseline">
+        <div class="col-3">
+            <a asp-area="" asp-controller="Inmueble" asp-action="index"> <h4>Lista de Inmuebles</h4> </a>
+        </div>
+
+        <div class="col">
+            <div class="btn btn-outline-primary"> <a asp-action="Busqueda" > <i class="fas fa-search text-primary"></i> Avanzada</a> </div>
+        </div>
+
+        <div class="col">
+            <input type="date" name="desde" asp-for="@desde" class="form-control" />
+        </div>
+        <div class="col">
+            <input type="date" name="hasta" asp-for="@hasta" class="form-control" />
+        </div>
+        <div class="col">
+            <div class="btn btn-outline-primary">
+                @if ((Boolean)ViewBag.filtroDesocupado)
+                {
+                    <i class="fas fa-filter text-danger"></i>
+                }
+                else
+                {
+                    <i class="fas fa-search text-primary"></i>
+                }
+                <button asp-controller="Inmueble" asp-action="Desocupados" class="border-0 btn btn-primary-outline btn-sm">Desocupados</button>
+            </div>
+        </div>
+
+        <div class="col text-right">
+            @if ((Boolean)ViewBag.filtroPropietario)
+            {
+                Propietario e = (Propietario)ViewBag.Propietario;
+                <div class="btn btn-outline-primary"> <a asp-action="Create" asp-route-id="@e.Id"> <i class="fa fa-plus"></i> Crear Nuevo</a> </div>
+            }
+            else
+            {
+                <div class="btn btn-outline-primary"> <a asp-action="Create" asp-route-id="0"> <i class="fa fa-plus"></i> Crear Nuevo</a> </div>
+            }
+        </div>
+    </div>
+</form>
+
+
+@if ((Boolean)ViewBag.filtroPropietario)
+{
+    Propietario e = (Propietario)ViewBag.Propietario;
+    <label>Propietario: </label> @e.Persona.Apellido <label> </label> @e.Persona.Nombre
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Id) </th>
+            <th> @Html.DisplayNameFor(model => model.Direccion) </th>
+            <th> @Html.DisplayNameFor(model => model.TipoInmueble) </th>
+            <th> @Html.DisplayNameFor(model => model.Ambientes) </th>
+            <th> @Html.DisplayNameFor(model => model.Precio) </th>
+            <th>
+                <div class="btn">
+                    @if ((Boolean)ViewBag.filtroDisponible)
+                    {
+                        <i class="fas fa-filter text-danger"></i>
+                    }
+                    @Html.ActionLink("Disponible", "getByDisponible")
+                </div>
+            </th>
+            <th>
+                @if ((Boolean)ViewBag.filtroPropietario)
+                {
+                    <i class="fas fa-filter text-danger"></i>
+                }
+                @Html.DisplayNameFor(model => model.Propietario)
+            </th>
+            <th>
+                @if ((Boolean)ViewBag.filtroAgencia)
+                {
+                    <i class="fas fa-filter text-danger"></i>
+                }
+                @Html.DisplayNameFor(model => model.Agencia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.Id) </td>
+                <td> @Html.DisplayFor(modelItem => item.Direccion) </td>
+                <td> @Html.DisplayFor(modelItem => item.TipoInmueble.Nombre) </td>
+                <td class="text-center"> @Html.DisplayFor(modelItem => item.Ambientes) </td>
+                <td> @Html.DisplayFor(modelItem => item.Precio) </td>
+                <td class="text-center">
+                    @if (item.Disponible)
+                    {
+                        <i class="far fa-check-circle text-success"></i>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Inmueble" asp-action="getByPropietario" asp-route-id="@item.PropietarioId" title="Mis Propiedades">
+                        @Html.DisplayFor(modelItem => item.Propietario.Persona.Apellido)
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Inmueble" asp-action="getByAgencia" asp-route-id="@item.AgenciaId" title="Mis propiedades" class="text-primary">
+                        @Html.DisplayFor(modelItem => item.Agencia.Persona.Apellido)
+                    </a>
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="text-warning"> <i class="far fa-edit"></i> </a> │
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Detalle"> <i class="fas fa-bars"></i> </a> │
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Borrar" class="text-danger"> <i class="far fa-trash-alt"></i> </a> |
+                    <a asp-controller="Contrato" asp-action="GetByInmueble" asp-route-id="@item.Id" title="Contratos" class="text-success"> <i class="fas fa-file-signature"></i> </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

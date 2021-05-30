@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MiInmobiliaria.Models.TipoPersona>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@*@if (!String.IsNullOrEmpty(@ViewBag.Error))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Información:</strong> @ViewBag.Error
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            X
+        </button>
+    </div>
+}*@
+
+
+
+
+<div class="row d-flex align-items-baseline">
+    <div class="col-8 col-sm-8">
+        <h2>Lista de TiposPersona</h2>
+    </div>
+    <div class="col-4 col-sm-4 text-right">
+        <p class="btn btn-outline-primary"> <a asp-action="Create"><i class="fa fa-plus"></i> Crear Nuevo</a> </p>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @*@Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })*@
+                <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="text-warning"><i class="far fa-edit"></i></a> │
+                <a asp-action="Details" asp-route-id="@item.Id" title="Detalle"><i class="fas fa-bars"></i></a> │
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Borrar" class="text-danger"><i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

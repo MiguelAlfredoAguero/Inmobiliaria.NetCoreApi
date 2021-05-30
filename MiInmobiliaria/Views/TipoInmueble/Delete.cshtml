@@ -1,0 +1,51 @@
+﻿@model MiInmobiliaria.Models.TipoInmueble
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row align-items-baseline">
+    <div class="col-3 text-danger"> <h1><i class="far fa-trash-alt"></i> Borrar</h1> </div>
+    <div class="col-9"> <h4>TipoInmueble</h4> </div>
+</div>
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+
+<hr />
+<div class="row">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+
+        <dl class="row">
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-3 col-sm-3">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-9 col-sm-9 border form-control">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+        </dl>
+
+    </div>
+</div>
+
+<form asp-action="Delete">
+    <input type="submit" value="Borrar" class="btn btn-danger" onclick="return Confirmar()" /> |
+    <a asp-action="Index">Volver a la Lista</a>
+</form>
+
+
+
+<script type="text/javascript">
+    function Confirmar() {
+        var opcion = confirm("Borrar Registro. Confirma la operacion?");
+        if (opcion == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

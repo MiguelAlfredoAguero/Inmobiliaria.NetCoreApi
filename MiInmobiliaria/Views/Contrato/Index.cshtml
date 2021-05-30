@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MiInmobiliaria.Models.Contrato>
+
+@{
+    ViewData["Title"] = "Contratos";
+    Inmueble inmueble = (Inmueble)ViewBag.Inmueble;
+}
+
+<div class="row align-items-baseline">
+    <div class="col">
+        <a asp-area="" asp-controller="Contrato" asp-action="index"> <h4>Lista de Contratos</h4> </a>
+    </div>
+
+    <div class="col text-center">
+        <div class="btn btn-outline-primary">
+            <a asp-action="Vigentes">
+                @if ((Boolean)ViewBag.filtroVigente)
+                {
+                    <i class="fas fa-filter text-danger"></i>
+                }
+                else
+                {
+                    <i class="fas fa-search text-primary"></i>
+                }
+                Vigentes
+            </a>
+        </div>
+    </div>
+    <div class="col text-right">
+        <div class="btn btn-outline-primary">
+            @if ((Boolean)ViewBag.filtroInmueble)
+            {
+                <a asp-action="Create" asp-route-id="@inmueble.Id"> <i class="fa fa-plus"></i> Crear Nuevo</a>
+            }
+            else
+            {
+                <a asp-action="Create"> <i class="fa fa-plus"></i> Crear Nuevo</a>
+            }
+        </div>
+    </div>
+</div>
+
+
+@if ((Boolean)ViewBag.filtroInmueble)
+{
+    <label>Inmueble: @inmueble.Id - @inmueble.Direccion  Ambientes: @inmueble.Ambientes </label>
+
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Id) </th>
+            <th>
+                @if ((Boolean)ViewBag.filtroInmueble)
+                {
+                    <i class="fas fa-filter text-danger"></i>
+                }
+                @Html.DisplayNameFor(model => model.Inmueble)
+            </th>
+            <th> Inquilino </th>
+            <th> Garante </th>
+            <th> @Html.DisplayNameFor(model => model.Desde) </th>
+            <th> @Html.DisplayNameFor(model => model.Hasta) </th>
+            <th> @Html.DisplayNameFor(model => model.Precio) </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.Id) </td>
+                <td> @Html.DisplayFor(modelItem => item.Inmueble.Direccion) </td>
+                <td> @Html.DisplayFor(modelItem => item.Inquilino.Persona.Apellido) @Html.DisplayFor(modelItem => item.Inquilino.Persona.Nombre) </td>
+                <td> @Html.DisplayFor(modelItem => item.Garante.Persona.Apellido) @Html.DisplayFor(modelItem => item.Garante.Persona.Nombre) </td>
+                <td> @Html.DisplayFor(modelItem => item.Desde) </td>
+                <td> @Html.DisplayFor(modelItem => item.Hasta) </td>
+                <td> @Html.DisplayFor(modelItem => item.Precio) </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Editar" class="text-warning"> <i class="far fa-edit"></i> </a> │
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Detalle"> <i class="fas fa-bars"></i> </a> │
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Borrar" class="text-danger"> <i class="far fa-trash-alt"></i> </a> |
+
+                    <a asp-controller="Pago" asp-action="RegistrarPago" asp-route-id="@item.Id" title="Registrar pago" class="text-success"> <i class="fas fa-cash-register"></i> </a> |
+                    <a asp-controller="Pago" asp-action="VerPagos" asp-route-id="@item.Id" title="Ver pagos" class="text-primary"> <i class="fas fa-money-check-alt"></i> </a> |
+
+                    @if (item.Hasta > DateTime.Now) // Se puede cancelar
+                    {
+                        <a asp-controller="Contrato" asp-action="Cancelar" asp-route-id="@item.Id" title="Cancelar contrato" class="text-warning"> <i class="fas fa-store-alt-slash"></i> </a>
+                    }
+                    else // Se puede Renovar
+                    {
+                        <a asp-controller="Contrato" asp-action="Renovar" asp-route-id="@item.Id" title="Renovar contrato" class="text-success float-right"> <i class="fas fa-recycle"></i> </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
